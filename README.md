@@ -16,14 +16,14 @@ However, for those who need a full-featured eCommerce solution, we recommend [Ad
 ## Get started
 
 * Assumes that you have a [Google Retail](https://cloud.google.com/retail/docs) service setup with configured serving models
-* Clone repo: `git clone git@github.com:cpini/magento-google-reco-ai.git`
+* Clone repo: `git clone git@github.com:cpini/mage-retailai-reco-ai.git`
 * Drop the module into your working environment in `app/code`
 * Set the ready-made config details for the Product Detail Page (other models can easily be created reusing product lists)
-* Tested on Magento 2.4.6
-* Cache busts the full page cache without invalidating the whole page cache
+* Tested on Magento 2.4.6-p1 (PHP 8.2)
+* The blocks for the product lists bust the full page cache without invalidating the entire page  
 
 ## How to use
-* Inject the `Google_Recommendations::recommendation/view.phtml` template into the relevant block as per the catalog product view example, it requires the `placement-id` and `event-type` to be configured to surface the product recommendations from the relevant model.
+* Inject the `RetailAI_Recommendations::recommendation/view.phtml` template into the relevant block as per the catalog product view example, it requires the `placement-id` and `event-type` to be configured to surface the product recommendations from the relevant model.
 
 ## Learn About GraphQL in Magento 2
 - [Quick start install](https://devdocs.magento.com/guides/v2.4/install-gde/composer.html)
