@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <referenceContainer name="content.aside" remove="true"/>
+    <referenceContainer name="content">
+        <block class="Google\Recommendations\Block\Recommendation\View" name="google-recommendations-list-block" template="Google_Recommendations::recommendation/view.phtml">
+            <arguments>
+                <argument name="placement-id" xsi:type="helper" helper="Google\Recommendations\Helper\Data::getPdpPlacementId" translate="true"/>
+                <argument name="event-type" xsi:type="helper" helper="Google\Recommendations\Helper\Data::getPdpEventType" translate="true" />
+                <argument name="title" xsi:type="helper" helper="Google\Recommendations\Helper\Data::getPdpTitle" translate="true" />
+            </arguments>
+        </block>
+    </referenceContainer>
+</page>

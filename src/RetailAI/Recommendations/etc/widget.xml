@@ -1,0 +1,28 @@
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget class="RetailAI\Recommendations\Block\Widget\ProductList" id="recommendations_list"
+            placeholder_image="RetailAI_Recommendations::images/products_list.png">
+        <label>Product Recommendations List</label>
+        <description>This widget supports AI based recommendations</description>
+        <parameters>
+            <parameter name="placement-id" xsi:type="text" required="true" visible="true" sort_order="10">
+                <label>Placement ID</label>
+                <description translate="true">
+                    <![CDATA[This needs to correspond to the Placement ID created for the model
+                    <br/>within Google Recommendations AI.]]>
+                </description>
+            </parameter>
+            <parameter name="event-type" xsi:type="select" visible="true" required="true" sort_order="20">
+                <label translate="true">Event Type</label>
+                <options>
+                    <option name="home-page" value="home-page">
+                        <label>Homepage</label>
+                    </option>
+                    <option name="detail-page-view" value="detail-page-view">
+                        <label>Product Detail Page</label>
+                    </option>
+                </options>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>

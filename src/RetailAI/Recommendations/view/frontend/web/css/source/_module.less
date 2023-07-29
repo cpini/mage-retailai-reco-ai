@@ -1,0 +1,203 @@
+// /**
+//  * Copyright © Magento, Inc. All rights reserved.
+//  * See COPYING.txt for license details.
+//  */
+
+
+//
+//  Common
+//  _____________________________________________
+
+@silver-tooltip-bg: #c0c0c0;
+
+& when (@media-common = true) {
+
+    /* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+    }
+
+    .modal-content h2 {
+        background-image: url("../images/google_search/google-g-logo.png");
+        background-repeat: no-repeat;
+        background-size: 35px 35px;
+        background-position: left;
+        padding-left: 31px;
+    }
+
+    p.image-upload-requirements {
+        padding-top: 12px;
+    }
+
+    /* The Close Button */
+    .close {
+        color: #000000;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    /* Modal Header */
+    .modal-header {
+        padding: 2px 16px;
+        background-color: #03c2fc;
+        color: white;
+    }
+
+    /* Modal Body */
+    .modal-body {padding: 2px 16px;}
+
+    /* Modal Footer */
+    .modal-footer {
+        padding: 2px 16px;
+        background-color: #03c2fc;
+        color: white;
+    }
+
+    /* Modal Content */
+    .modal-content {
+        position: relative;
+        background-color: #fefefe;
+        width: 80%;
+        -webkit-animation-name: animatetop;
+        -webkit-animation-duration: 0.4s;
+        animation-name: animatetop;
+        animation-duration: 0.4s
+    }
+
+    /* Add Animation */
+    @keyframes animatetop {
+        from {top: -300px; opacity: 0}
+        to {top: 0; opacity: 1}
+    }
+
+    .action.visualsearch {
+        display: inline-block;
+        background: none;
+        border: none;
+        background-image: url("../images/google_search/camera.svg");
+        background-repeat: no-repeat;
+        background-size: 18px;
+        background-position: left;
+        padding: 15px 12px;
+        position: absolute;
+        right: -35px;
+        top: 0px;
+        z-index: 1;
+        outline: none;
+
+        &:hover {
+            background-image: url("../images/google_search/camera_hover.svg");
+        }
+
+        span.visual-search-span {
+            border: 0;
+            clip: rect(0, 0, 0, 0);
+            height: 1px;
+            margin: -1px;
+            overflow: hidden;
+            padding: 0;
+            position: absolute;
+            width: 1px;
+        }
+
+        .tooltip.content {
+            width: 90px;
+            min-width: auto;
+        }
+    }
+
+    .action.search {
+        right: 8px;
+    }
+
+    .star-ratings {
+        unicode-bidi: bidi-override;
+        color: #ccc;
+        font-size: 12px;
+        position: relative;
+        margin: 0;
+        padding: 0;
+        .fill-ratings {
+            color: #f2c11d;
+            padding: 0;
+            position: absolute;
+            z-index: 1;
+            display: block;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+
+            // Allows us to grab the width of the span elements
+            span {
+                display: inline-block;
+            }
+        }
+        .empty-ratings {
+            padding: 0;
+            display: block;
+            z-index: 0;
+        }
+    }
+
+    .visual-score-rating {
+        overflow: auto;
+        color:#ccc;
+        font-size: 12px;
+        background-image: url("../images/google_search/google-g-logo.png");
+        background-repeat: no-repeat;
+        background-size: 14px 14px;
+        background-position: left;
+        padding-left: 16px;
+    }
+
+    // Sorting will not play well with the
+    // Google integration so better hide for now
+    .toolbar-sorter {
+        display: none;
+    }
+
+    p.google-logo {
+        background-image: url("../images/google_search/google-g-logo.png");
+        background-repeat: no-repeat;
+        background-size: 18px 18px;
+        background-position: left;
+        padding-left: 17px;
+    }
+}
+
+@media all and (min-width: @screen__m) {
+    .block-search {
+        right: 25px;
+    }
+}
+
+@media all and (max-width: @screen__m) {
+    .form.minisearch {
+        .action.visualsearch {
+            display: none;
+        }
+        &.active {
+            .action.visualsearch {
+                display: block;
+                right: 20px;
+                top: 92px;
+                &.tooltip {
+                    .tooltiptext {
+                        font-size: 10px;
+                        width: 75px;
+                        left: -30px;
+                    }
+                }
+            }
+        }
+    }
+
+}

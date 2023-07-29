@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <catalog>
+            <google_retail>
+                <google_recommendations_project_id><!-- Provide GCP Project Id --></google_recommendations_project_id>
+                <google_recommendations_zone><!-- Provide GCP Zone --></google_recommendations_zone>
+                <google_recommendations_catalogs>default_catalog</google_recommendations_catalogs>
+                <google_pdp_recommendation_title>Recommendations</google_pdp_recommendation_title>
+                <google_pdp_recommendation_placement_id><!-- Reco AI placementId --></google_pdp_recommendation_placement_id>
+                <google_pdp_recommendation_event_type><!-- Reco AI eventType --></google_pdp_recommendation_event_type>
+                <google_recommendation_validate_only>0</google_recommendation_validate_only>
+            </google_retail>
+        </catalog>
+    </default>
+</config>

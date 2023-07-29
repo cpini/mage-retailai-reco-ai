@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="catalog">
+            <group id="google_retail" translate="label" type="text" sortOrder="500" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="google_recommendations_project_id" translate="label comment" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>RecoAI Project ID</label>
+                </field>
+                <field id="google_recommendations_zone" translate="label comment" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>RecoAI Zone</label>
+                </field>
+                <field id="google_pdp_recommendation_title" translate="label comment" type="text" sortOrder="160" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>PDP Recommendation Title</label>
+                </field>
+                <field id="google_pdp_recommendation_placement_id" translate="label comment" type="text" sortOrder="170" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>PDP Recommendation Placement ID</label>
+                </field>
+                <field id="google_pdp_recommendation_event_type" translate="label comment" type="text" sortOrder="180" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>PDP Recommendation Event Type</label>
+                </field>
+                <field id="google_recommendation_validate_only" translate="label comment" type="select" sortOrder="180" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Validate Only Flag</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
