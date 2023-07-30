@@ -9,11 +9,12 @@
     <system>
         <section id="catalog">
             <group id="google_retail" translate="label" type="text" sortOrder="500" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Google Recommendations AI</label>
                 <field id="google_recommendations_project_id" translate="label comment" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
-                    <label>RecoAI Project ID</label>
+                    <label>GCP Project ID</label>
                 </field>
                 <field id="google_recommendations_zone" translate="label comment" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
-                    <label>RecoAI Zone</label>
+                    <label>GCP Zone</label>
                 </field>
                 <field id="google_pdp_recommendation_title" translate="label comment" type="text" sortOrder="160" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
                     <label>PDP Recommendation Title</label>
