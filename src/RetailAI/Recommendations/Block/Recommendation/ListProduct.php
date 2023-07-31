@@ -102,6 +102,32 @@ class ListProduct extends CoreListProduct
      */
     protected function _getProductCollection(): Collection
     {
+        $entities = $this->getProductRecommendationEntities();
+        $collection = $this->_productCollectionFactory->create();
+        if ($this->getData('store_id') !== null) {
+            $collection->setStoreId($this->getData('store_id'));
+        }
+        $collection->setVisibility($this->visibility->getVisibleInCatalogIds());
+        $collection->addAttributeToFilter('entity_id', $entities);
+        // Sort by order returned by Google Reco AI
+        $orderList = join(',', $entities);
+        $collection->getSelect()->order(new ZendDbExpression("FIELD(e.entity_id,$orderList)"));
+        $collection = $this->_addProductAttributesAndPrices($collection)
+            ->addStoreFilter()
+            ->setPageSize(5);
+        /**
+         * Prevent retrieval of duplicate records. This may occur when multiselect product attribute matches
+         * several allowed values from condition simultaneously
+         */
+        $collection->distinct(true);
+        return $collection;
+    }
+
+    /**
+     * @return array
+     */
+    private function getProductRecommendationEntities(): array
+    {
         $topFive = [-1];
         try {
             $validateOnly = $this->googleHelper->getRecommendationsValidateOnly();
@@ -120,32 +146,7 @@ class ListProduct extends CoreListProduct
         } catch (Exception $e) {
             $this->logger->critical("Recs: " . $e->getMessage());
         }
-        return $this->getProductRecommendations($topFive);
-    }
-
-    /**
-     * @return Collection
-     */
-    private function getProductRecommendations($topFive): Collection
-    {
-        $collection = $this->_productCollectionFactory->create();
-        if ($this->getData('store_id') !== null) {
-            $collection->setStoreId($this->getData('store_id'));
-        }
-        $collection->setVisibility($this->visibility->getVisibleInCatalogIds());
-        $collection->addAttributeToFilter('entity_id', $topFive);
-        // Sort by order returned by Google Reco AI
-        $orderList = join(',', $topFive);
-        $collection->getSelect()->order(new ZendDbExpression("FIELD(e.entity_id,$orderList)"));
-        $collection = $this->_addProductAttributesAndPrices($collection)
-            ->addStoreFilter()
-            ->setPageSize(5);
-        /**
-         * Prevent retrieval of duplicate records. This may occur when multiselect product attribute matches
-         * several allowed values from condition simultaneously
-         */
-        $collection->distinct(true);
-        return $collection;
+        return $topFive;
     }
 
     /**
