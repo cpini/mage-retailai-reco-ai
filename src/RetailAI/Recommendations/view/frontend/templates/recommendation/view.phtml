@@ -21,11 +21,11 @@ $cacheKey     = $block->getRecommendationCacheKey();
                     "components": {
                         "recommendation": {
                             "component": "RetailAI_Recommendations/js/view/recommendation",
-                            "ajaxUrl": "<?php echo $escaper->escapeUrl($ajaxUrl); ?>",
-                            "placementId": "<?php echo $escaper->escapeHtml($placementId); ?>",
-                            "eventType": "<?php echo $escaper->escapeHtml($eventType); ?>",
-                            "recCacheKey": "<?php echo $escaper->escapeHtml($cacheKey); ?>",
-                            "productId": "<?php echo $escaper->escapeHtml($productId); ?>"
+                            "ajaxUrl": "<?= $escaper->escapeUrl($ajaxUrl); ?>",
+                            "placementId": "<?= $escaper->escapeHtml($placementId); ?>",
+                            "eventType": "<?= $escaper->escapeHtml($eventType); ?>",
+                            "recCacheKey": "<?= $escaper->escapeHtml($cacheKey); ?>",
+                            "productId": "<?= $escaper->escapeHtml($productId); ?>"
                         }
                     }
                 }

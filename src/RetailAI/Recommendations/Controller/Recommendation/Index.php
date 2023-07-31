@@ -9,6 +9,7 @@ use Magento\Framework\View\Result\PageFactory;
 use Magento\Catalog\ViewModel\Product\OptionsData as ViewModel;
 use Magento\Framework\Session\SessionManagerInterface;
 use RetailAI\Recommendations\Helper\Data as GoogleHelper;
+use RetailAI\Recommendations\Block\Recommendation\ListProduct;
 
 class Index extends Action
 {
@@ -46,12 +47,13 @@ class Index extends Action
      * @param GoogleHelper $googleHelper
      * @param SessionManagerInterface $session
      */
-    public function __construct(Context $context,
-                                PageFactory $resultPageFactory,
-                                JsonFactory $resultJsonFactory,
-                                ViewModel $optionsData,
-                                GoogleHelper $googleHelper,
-                                SessionManagerInterface $session
+    public function __construct(
+        Context $context,
+        PageFactory $resultPageFactory,
+        JsonFactory $resultJsonFactory,
+        ViewModel $optionsData,
+        GoogleHelper $googleHelper,
+        SessionManagerInterface $session
     ) {
         $this->_resultPageFactory = $resultPageFactory;
         $this->_resultJsonFactory = $resultJsonFactory;
@@ -73,9 +75,9 @@ class Index extends Action
         $productId = $this->getRequest()->getParam('product-id');
         $recKey = $this->getRequest()->getParam('recommendation-key');
         $block = $resultPage->getLayout()
-            ->createBlock('\RetailAI\Recommendations\Block\Recommendation\ListProduct')
+            ->createBlock(ListProduct::class)
             ->setTemplate('RetailAI_Recommendations::product/recommendation/list.phtml')
-            ->setData('viewModel',$this->optionsData)
+            ->setData('viewModel', $this->optionsData)
             ->setData('placement-id', $placementId)
             ->setData('event-type', $eventType)
             ->setData('product-id', $productId)
@@ -98,7 +100,7 @@ class Index extends Action
         if (is_array($this->sessionManager->getGoogleRecommendations())) {
             $recommendations = $this->sessionManager->getGoogleRecommendations();
         }
-        $recommendations = array_merge($recommendations, array($recKey => base64_encode(gzencode($block))));
+        $recommendations = array_merge($recommendations, [$recKey => base64_encode(gzencode($block))]);
         $this->sessionManager->setGoogleRecommendations($recommendations);
     }
 }

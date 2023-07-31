@@ -14,7 +14,7 @@ class View extends \Magento\Catalog\Block\Product\View
      */
     public function getAjaxUrl(): string
     {
-        return sprintf("%s%s",$this->getBaseUrl(),self::RECOMMENDATION_URL);
+        return sprintf("%s%s", $this->getBaseUrl(), self::RECOMMENDATION_URL);
     }
 
     /**
@@ -39,7 +39,7 @@ class View extends \Magento\Catalog\Block\Product\View
     public function getProductPageId(): int
     {
         $product = $this->getProduct();
-        if (!is_null($product)){
+        if (!is_null($product)) {
             return $product->getId();
         }
         return 0;
@@ -72,7 +72,7 @@ class View extends \Magento\Catalog\Block\Product\View
     {
         $placementId = $this->getData('placement-id');
         $eventType = $this->getData('event-type');
-        return sprintf("RECOMMENDATION_%s", md5($placementId . '_'.
+        return sprintf("RECOMMENDATION_%s", hash('sha256', $placementId . '_'.
             $eventType .'_'. $this->getUserEventId().'_'. $this->getProductPageId()));
     }
 }

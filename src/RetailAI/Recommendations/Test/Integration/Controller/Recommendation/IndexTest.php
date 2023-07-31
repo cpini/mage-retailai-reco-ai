@@ -42,7 +42,7 @@ class IndexTest extends AbstractController
         $placement  = $this->scopeConfig->getValue(self::PDP_PI_PATH, ScopeConfigInterface::SCOPE_TYPE_DEFAULT);
         $event_type = $this->scopeConfig->getValue(self::PDP_ET_PATH, ScopeConfigInterface::SCOPE_TYPE_DEFAULT);
         $this->getRequest()->setParams([
-            'recommendation-key' => md5(microtime().rand()),
+            'recommendation-key' => hash('sha256', microtime().rand()),
             'placement-id' => $placement,
             'event-type' => $event_type,
             'product-id' => 1840

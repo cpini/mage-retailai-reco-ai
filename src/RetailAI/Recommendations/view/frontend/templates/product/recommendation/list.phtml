@@ -90,7 +90,7 @@ $_helper = $block->getData('outputHelper');
                                                        name="<?= /* @noEscape */ Action::PARAM_NAME_URL_ENCODED ?>"
                                                        value="<?=
                                                        /* @noEscape */ $postParams['data'][Action::PARAM_NAME_URL_ENCODED]
-                                                       ?>">
+                                                        ?>">
                                                 <?= $block->getBlockHtml('formkey') ?>
                                                 <button type="submit"
                                                         title="<?= $escaper->escapeHtmlAttr(__('Add to Cart')) ?>"
@@ -102,10 +102,10 @@ $_helper = $block->getData('outputHelper');
                                         <?php else:?>
 <!--                                                --><?php //if ($_product->isAvailable()):?>
 <!--                                                    <div class="stock available">-->
-<!--                                                        <span>--><?//= $escaper->escapeHtml(__('In stock')) ?><!--</span></div>-->
+<!--                                                        <span>--><?php //= $escaper->escapeHtml(__('In stock')) ?><!--</span></div>-->
 <!--                                                --><?php //else:?>
 <!--                                                    <div class="stock unavailable">-->
-<!--                                                        <span>--><?//= $escaper->escapeHtml(__('Out of stock')) ?><!--</span></div>-->
+<!--                                                        <span>--><?php //= $escaper->escapeHtml(__('Out of stock')) ?><!--</span></div>-->
 <!--                                                --><?php //endif; ?>
                                         <?php endif; ?>
                                     </div>

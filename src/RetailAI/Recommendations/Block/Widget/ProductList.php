@@ -14,4 +14,3 @@ class ProductList extends Template implements BlockInterface
      */
     protected $_template = "widget/product_list.phtml";
 }
-

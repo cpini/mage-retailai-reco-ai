@@ -10,7 +10,6 @@ use Google\Cloud\Retail\V2\Product;
 use Google\Cloud\Retail\V2\ProductDetail;
 use Google\Cloud\Retail\V2\UserEvent;
 use Magento\Catalog\Api\CategoryRepositoryInterface;
-use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Catalog\Block\Product\Context;
 use Magento\Catalog\Model\Layer\Resolver;
 use Magento\Catalog\Model\Product\Visibility;
@@ -37,11 +36,6 @@ class ListProduct extends CoreListProduct
     protected $categoryRepository;
 
     /**
-     * @var ProductRepositoryInterface
-     */
-    protected ProductRepositoryInterface $productRepository;
-
-    /**
      * @var GoogleHelper
      */
     protected GoogleHelper $googleHelper;
@@ -63,7 +57,6 @@ class ListProduct extends CoreListProduct
      * @param CategoryRepositoryInterface $categoryRepository
      * @param Data $urlHelper
      * @param CollectionFactory $productCollectionFactory
-     * @param ProductRepositoryInterface $productRepository
      * @param GoogleHelper $googleHelper
      * @param Visibility $visibility
      * @param LoggerInterface $logger
@@ -76,7 +69,6 @@ class ListProduct extends CoreListProduct
         CategoryRepositoryInterface $categoryRepository,
         Data $urlHelper,
         CollectionFactory $productCollectionFactory,
-        ProductRepositoryInterface $productRepository,
         GoogleHelper $googleHelper,
         Visibility $visibility,
         LoggerInterface $logger,
@@ -84,7 +76,6 @@ class ListProduct extends CoreListProduct
     ) {
         $this->logger = $logger;
         $this->_productCollectionFactory = $productCollectionFactory;
-        $this->productRepository = $productRepository;
         $this->googleHelper = $googleHelper;
         $this->visibility = $visibility;
         parent::__construct(
@@ -156,7 +147,8 @@ class ListProduct extends CoreListProduct
     public function getIdentities()
     {
         $identities = [];
-        return array_merge([], ...$identities);;
+        return array_merge([], ...$identities);
+        ;
     }
 
 
@@ -185,7 +177,7 @@ class ListProduct extends CoreListProduct
             $userEvent->setVisitorId($visitorId);
             $userEvent->setEventType($event_type); // For now either 'home-page' OR 'detail-page-view'
             $userEvent->setSessionId($session_id);
-            if (!is_null($this->getData('product-id'))){
+            if (!is_null($this->getData('product-id'))) {
                 $prdId = $this->getData('product-id');
                 $gProduct = (new Product);
                 $productDetails = (new ProductDetail);
@@ -194,7 +186,7 @@ class ListProduct extends CoreListProduct
                 $productDetails->setProduct($gProduct);
                 $userEvent->setProductDetails([$productDetails]);
             }
-        } catch (LocalizedException $e){
+        } catch (LocalizedException $e) {
             $this->_logger->error("Google Recs - issue getting visitorId: " . $e->getMessage());
         }
         return $userEvent;
@@ -242,5 +234,4 @@ class ListProduct extends CoreListProduct
             . ($this->getData('product-id'))
             . ($this->googleHelper->getVisitorId());
     }
-
 }

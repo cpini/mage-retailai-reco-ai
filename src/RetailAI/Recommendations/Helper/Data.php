@@ -106,8 +106,8 @@ class Data
     public function getVisitorId(): string
     {
         $customerSession = $this->customerSession->create()->getCustomerData();
-        $visitorId = "0X0"; // initialise to assume not logged in
-        if (!is_null($customerSession)){
+        $visitorId = "0999XX999"; // initialise to assume not logged in
+        if ($customerSession !== null) {
             $customerModel = $this->customerFactory->create();
             $this->customerResourceModel->load($customerModel, $customerSession->getId());
             $visitorId = $customerModel->getIncrementId();
@@ -129,8 +129,9 @@ class Data
      * @return mixed
      */
     public function getGoogleRetailProjectId(
-        string $scopeType = ScopeConfigInterface::SCOPE_TYPE_DEFAULT, $scopeCode = null)
-    {
+        string $scopeType = ScopeConfigInterface::SCOPE_TYPE_DEFAULT,
+        $scopeCode = null
+    ) {
         return $this->scopeConfig->getValue(
             'catalog/google_retail/google_recommendations_project_id',
             $scopeType,
@@ -144,8 +145,9 @@ class Data
      * @return mixed
      */
     public function getGoogleRetailCatalogId(
-        string $scopeType = ScopeConfigInterface::SCOPE_TYPE_DEFAULT, $scopeCode = null): mixed
-    {
+        string $scopeType = ScopeConfigInterface::SCOPE_TYPE_DEFAULT,
+        $scopeCode = null
+    ): mixed {
         return $this->scopeConfig->getValue(
             'catalog/google_retail/google_recommendations_catalogs',
             $scopeType,

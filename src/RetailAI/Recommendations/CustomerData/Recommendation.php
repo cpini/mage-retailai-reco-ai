@@ -32,15 +32,14 @@ class Recommendation implements SectionSourceInterface
         if (is_array($recs) && !empty($recs)) {
             $retArr = [];
             $retArr['default'] = __('MAINTAIN');
-            foreach($recs as $k => $v){
-                if ($k !== "" && !is_array($k)){
+            foreach ($recs as $k => $v) {
+                if ($k !== "" && !is_array($k)) {
                     $retArr[$k] = gzdecode(base64_decode($v));
                 }
             }
             return $retArr;
-        } else {
-            $this->sessionManager->unsGoogleRecommendations();
-            return ['default' => __('RESET') ];
         }
+        $this->sessionManager->unsGoogleRecommendations();
+        return ['default' => __('RESET') ];
     }
 }
