@@ -48,7 +48,7 @@ class ListProduct extends CoreListProduct
     /**
      * @var LoggerInterface
      */
-    private $logger;
+    private LoggerInterface $logger;
 
     /**
      * @param Context $context
@@ -120,11 +120,11 @@ class ListProduct extends CoreListProduct
     private function getProductRecommendationEntities(): array
     {
         $topFive = [-1];
+        $predictClient = $this->getGooglePredictionServiceClient();
         try {
             $validateOnly = $this->googleHelper->getRecommendationsValidateOnly();
             $placement = $this->getPlacementData();
             $userEvent = $this->getUserEventData();
-            $predictClient = $this->getGooglePredictionServiceClient();
             $results = $predictClient->predict($placement, $userEvent, ['validateOnly' => $validateOnly]);
             $predictClient->close();
             $entityIds = [];
@@ -137,6 +137,7 @@ class ListProduct extends CoreListProduct
         } catch (Exception $e) {
             $this->logger->critical("Recs: " . $e->getMessage());
         }
+
         return $topFive;
     }
 

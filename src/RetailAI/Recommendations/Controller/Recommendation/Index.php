@@ -24,9 +24,9 @@ class Index extends Action
     protected JsonFactory $_resultJsonFactory;
 
     /**
-     * @var optionsData
+     * @var ViewModel
      */
-    protected ViewModel|optionsData $optionsData;
+    protected ViewModel $optionsData;
 
     /**
      * @var GoogleHelper

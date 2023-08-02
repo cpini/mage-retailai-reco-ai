@@ -24,8 +24,9 @@ class Recommendation implements SectionSourceInterface
 
     /**
      * @inheritdoc
+     * return array
      */
-    public function getSectionData()
+    public function getSectionData(): array
     {
         $this->sessionManager->start();
         $recs = $this->sessionManager->getGoogleRecommendations();

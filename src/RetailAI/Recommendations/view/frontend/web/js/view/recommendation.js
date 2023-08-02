@@ -34,21 +34,20 @@ define([
                 $('#google_recs').html(recHTML);
                 return true;
             }
-                $(document).ready(function () {
-                    $.ajax({
-                        context: '#google_recs',
-                        url: config.ajaxUrl,
-                        type: 'POST',
-                        data: {'placement-id': config.placementId,
-                            'event-type': config.eventType,
-                            'product-id': config.productId,
-                            'recommendation-key': dataKey}
-                    }).done(function (data) {
-                        $('#google_recs').html(data.output);
-                        return true;
-                    });
+            $(document).ready(function () {
+                $.ajax({
+                    context: '#google_recs',
+                    url: config.ajaxUrl,
+                    type: 'POST',
+                    data: {'placement-id': config.placementId,
+                        'event-type': config.eventType,
+                        'product-id': config.productId,
+                        'recommendation-key': dataKey}
+                }).done(function (data) {
+                    $('#google_recs').html(data.output);
+                    return true;
                 });
-
+            });
         }
     });
 });
