@@ -13,10 +13,16 @@ Welcome to the Magento Open Source project! [Magento Open Source](https://magent
 
 However, for those who need a full-featured eCommerce solution, we recommend [Adobe Commerce](https://magento.com/products/magento-commerce), which includes our optimized cloud architecture and hosting as well as AI-powered merchandising and analytics.
 
-## Get started
+## Dependencies
+* You will need to have the [Google Retail](https://cloud.google.com/retail/docs) service enabled in GCP
+* You will need to [import your product catalog](https://cloud.google.com/retail/docs/upload-catalog) into Google Retail (this can be achieved easily if your products are merchandised in the [Google Merchant Centre](https://www.google.com/retail/))
+* You will need to capture Enhanced Ecommerce metrics as [Recommendations AI](https://cloud.google.com/blog/topics/developers-practitioners/recommendations-ai-modeling) uses a number of the [key user events](https://cloud.google.com/retail/docs/user-events) to train the AI models (please read [general user event requirements](https://cloud.google.com/retail/docs/user-events#retail-reqs) for Retail API and [recommendations specific requirements](https://cloud.google.com/retail/docs/user-events#rec-reqs) to further understand the relationships)
+* You should be sending the Magento `Customer Increment ID` as the `visitorId`
+* The anonymous `visitorId` value is configurable and should be common for all anonymous visits
+* You will need to create a Google Retail [service account](https://cloud.google.com/iam/docs/service-account-overview) to grant access to applications that need to integrate with the service
+* Please consult supplementary details on [best practices](https://cloud.google.com/iam/docs/best-practices-service-accounts) for using GCP service accounts to support your own hosting environment  
 
-* Assumes that you have a [Google Retail](https://cloud.google.com/retail/docs) service setup with configured serving models
-* Clone repo: `git clone git@github.com:cpini/mage-retailai-reco-ai.git`
+## Get started
 * Drop the module into your working environment in `app/code`
 * Set the ready-made config details for the Product Detail Page (other models can easily be created reusing product lists)
 * Tested on Magento 2.4.6-p1 (PHP 8.2)

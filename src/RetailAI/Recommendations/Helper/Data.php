@@ -98,7 +98,7 @@ class Data
     }
 
     /**
-     * Essentially the customer increment id for to use for Reco API
+     * Essentially the customer increment id to use for Reco API
      * @return string
      * @throws LocalizedException
      * @throws NoSuchEntityException
@@ -106,7 +106,7 @@ class Data
     public function getVisitorId(): string
     {
         $customerSession = $this->customerSession->create()->getCustomerData();
-        $visitorId = "0999XX999"; // initialise to assume not logged in
+        $visitorId = $this->getAnonymousVisitorIdValue();
         if ($customerSession !== null) {
             $customerModel = $this->customerFactory->create();
             $this->customerResourceModel->load($customerModel, $customerSession->getId());
@@ -195,6 +195,17 @@ class Data
     {
         return $this->scopeConfig->getValue(
             'catalog/google_retail/google_recommendation_validate_only',
+            ScopeConfigInterface::SCOPE_TYPE_DEFAULT
+        );
+    }
+
+    /**
+     * @return mixed
+     */
+    private function getAnonymousVisitorIdValue(): mixed
+    {
+        return $this->scopeConfig->getValue(
+            'catalog/google_retail/google_recommendation_anon_visitor_id',
             ScopeConfigInterface::SCOPE_TYPE_DEFAULT
         );
     }

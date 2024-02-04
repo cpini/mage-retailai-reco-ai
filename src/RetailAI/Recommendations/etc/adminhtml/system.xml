@@ -25,9 +25,12 @@
                 <field id="google_pdp_recommendation_event_type" translate="label comment" type="text" sortOrder="180" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
                     <label>PDP Recommendation Event Type</label>
                 </field>
-                <field id="google_recommendation_validate_only" translate="label comment" type="select" sortOrder="180" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                <field id="google_recommendation_validate_only" translate="label comment" type="select" sortOrder="190" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
                     <label>Validate Only Flag</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="google_recommendation_anon_visitor_id" translate="label comment" type="text" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Anonymous GA visitorID Value</label>
                 </field>
             </group>
         </section>
