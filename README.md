@@ -16,16 +16,15 @@ However, for those who need a full-featured eCommerce solution, we recommend [Ad
 ## Dependencies
 * You will need to have the [Google Retail](https://cloud.google.com/retail/docs) service enabled in GCP
 * You will need to [import your product catalog](https://cloud.google.com/retail/docs/upload-catalog) into Google Retail (this can be achieved easily if your products are merchandised in the [Google Merchant Centre](https://www.google.com/retail/))
-* You will need to capture Enhanced Ecommerce metrics as [Recommendations AI](https://cloud.google.com/blog/topics/developers-practitioners/recommendations-ai-modeling) uses a number of the [key user events](https://cloud.google.com/retail/docs/user-events) to train the AI models (please read [general user event requirements](https://cloud.google.com/retail/docs/user-events#retail-reqs) for Retail API and [recommendations specific requirements](https://cloud.google.com/retail/docs/user-events#rec-reqs) to further understand the relationships)
-* You should be sending the Magento `Customer Increment ID` as the `visitorId`
-* The anonymous `visitorId` value is configurable and should be common for all anonymous visits
+* You will need to capture specific user-event metrics in GA as [Recommendations AI](https://cloud.google.com/blog/topics/developers-practitioners/recommendations-ai-modeling) uses a number of [key user-events](https://cloud.google.com/retail/docs/user-events) to train the AI models (please read [Retail API requirements](https://cloud.google.com/retail/docs/user-events#retail-reqs) for general user-event requirements and [recommendations-specific requirements](https://cloud.google.com/retail/docs/user-events#rec-reqs) to further understand the `purchase-complete` event). Note the key fields to map a recommendation back to a user are the `visitorId` and the `userId`. This module assumes that in both cases the GA [`clientId`] and `CustomerIncrementId` respectively are being being used. 
+* The `visitorId` should be able to uniquely identify a visitor on a single device. The recommendation is to use the GA [`clientId`](https://developers.google.com/analytics/devguides/collection/analyticsjs/field-reference#clientId) as this is device specific. For a more granular level of perosnalisation you should also be capturing the `userId` when capturing the user events.
 * You will need to create a Google Retail [service account](https://cloud.google.com/iam/docs/service-account-overview) to grant access to applications that need to integrate with the service
 * Please consult supplementary details on [best practices](https://cloud.google.com/iam/docs/best-practices-service-accounts) for using GCP service accounts to support your own hosting environment  
 
 ## Get started
 * Drop the module into your working environment in `app/code`
 * Set the ready-made config details for the Product Detail Page (other models can easily be created reusing product lists)
-* Tested on Magento 2.4.6-p1 (PHP 8.2)
+* Tested on Magento 2.4.6-p1, 2.4.7-p3 (PHP 8.2)
 * The blocks for the product lists bust the full page cache without invalidating the entire page  
 
 ## How to use

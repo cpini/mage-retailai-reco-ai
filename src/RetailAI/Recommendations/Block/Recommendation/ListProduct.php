@@ -9,6 +9,7 @@ use Google\Cloud\Retail\V2\PredictionServiceClient;
 use Google\Cloud\Retail\V2\Product;
 use Google\Cloud\Retail\V2\ProductDetail;
 use Google\Cloud\Retail\V2\UserEvent;
+use Google\Cloud\Retail\V2\UserInfo;
 use Magento\Catalog\Api\CategoryRepositoryInterface;
 use Magento\Catalog\Block\Product\Context;
 use Magento\Catalog\Model\Layer\Resolver;
@@ -187,6 +188,12 @@ class ListProduct extends CoreListProduct
                 $productDetails->setProduct($gProduct);
                 $userEvent->setProductDetails([$productDetails]);
             }
+            if (!is_null($this->googleHelper->getUserId())){
+                $userInfo = (new UserInfo);
+                $userInfo->setUserId($this->googleHelper->getUserId());
+                $userEvent->setUserInfo($userInfo);
+            }
+
         } catch (LocalizedException $e) {
             $this->_logger->error("Google Recs - issue getting visitorId: " . $e->getMessage());
         }

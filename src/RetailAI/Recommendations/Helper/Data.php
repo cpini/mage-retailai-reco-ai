@@ -3,21 +3,28 @@
 namespace RetailAI\Recommendations\Helper;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
-//use Magento\Framework\Exception\FileSystemException;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Filesystem;
 use Magento\Framework\Filesystem\DirectoryList;
-use Magento\Store\Model\StoreManagerInterface;
-//use phpDocumentor\Reflection\Types\Mixed_;
-use Psr\Log\LoggerInterface;
+use Magento\Framework\Stdlib\CookieManagerInterface;
 use Magento\Framework\Session\SessionManagerInterface;
+use Magento\Store\Model\StoreManagerInterface;
+use Psr\Log\LoggerInterface;
 use Magento\Customer\Model\CustomerFactory;
 use Magento\Customer\Model\ResourceModel\Customer as CustomerResourceModel;
 use Magento\Customer\Model\SessionFactory;
 
+
 class Data
 {
+    public const COOKIE_NAME = "_ga";
+
+    /**
+     * @var \Magento\Framework\Stdlib\CookieManagerInterface
+     */
+    protected $_cookieManager;
+
     /**
      * @var DirectoryList
      */
@@ -65,6 +72,7 @@ class Data
     protected ScopeConfigInterface $scopeConfig;
 
     /**
+     * @param CookieManagerInterface $cookieManager,
      * @param LoggerInterface $logger
      * @param StoreManagerInterface $storeManager
      * @param DirectoryList $dir
@@ -76,6 +84,7 @@ class Data
      * @param ScopeConfigInterface $scopeConfig
      */
     public function __construct(
+        CookieManagerInterface $cookieManager,
         LoggerInterface         $logger,
         StoreManagerInterface   $storeManager,
         DirectoryList           $dir,
@@ -95,24 +104,45 @@ class Data
         $this->customerResourceModel = $customerResourceModel;
         $this->customerFactory = $customerFactory;
         $this->scopeConfig = $scopeConfig;
+        $this->_cookieManager = $cookieManager;
     }
 
     /**
-     * Essentially the customer increment id to use for Reco API
+     * The GA ID or the sessionId
      * @return string
      * @throws LocalizedException
      * @throws NoSuchEntityException
      */
     public function getVisitorId(): string
     {
+        /**
+         * Assumes the use of GA for tracking and looks for the GA Client ID (as recommended by Google
+         * https://cloud.google.com/retail/docs/reference/rest/v2/projects.locations.catalogs.userEvents).
+         * However, this must match the visitorId captured in the user events being captured
+         */
+        $analyticsId = $this->_cookieManager->getCookie(self::COOKIE_NAME);
+        $visitorId = $analyticsId;
+        return (string)$visitorId;
+    }
+
+    /**
+     * Essentially the customer increment id for to use for Reco API.
+     * The user events also need to capture the userInfo.UserId information i.e. the incrementId
+     * as this will allow for a deeper level personalisation for logged in users
+     * @return string
+     * @throws LocalizedException
+     * @throws NoSuchEntityException
+     */
+    public function getUserId(): string
+    {
+        $userId = null;
         $customerSession = $this->customerSession->create()->getCustomerData();
-        $visitorId = $this->getAnonymousVisitorIdValue();
         if ($customerSession !== null) {
             $customerModel = $this->customerFactory->create();
             $this->customerResourceModel->load($customerModel, $customerSession->getId());
-            $visitorId = $customerModel->getIncrementId();
+            $userId = $customerModel->getIncrementId();
         }
-        return (string)$visitorId;
+        return (string)$userId;
     }
 
     /**
@@ -195,17 +225,6 @@ class Data
     {
         return $this->scopeConfig->getValue(
             'catalog/google_retail/google_recommendation_validate_only',
-            ScopeConfigInterface::SCOPE_TYPE_DEFAULT
-        );
-    }
-
-    /**
-     * @return mixed
-     */
-    private function getAnonymousVisitorIdValue(): mixed
-    {
-        return $this->scopeConfig->getValue(
-            'catalog/google_retail/google_recommendation_anon_visitor_id',
             ScopeConfigInterface::SCOPE_TYPE_DEFAULT
         );
     }

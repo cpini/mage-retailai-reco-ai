@@ -29,9 +29,6 @@
                     <label>Validate Only Flag</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
-                <field id="google_recommendation_anon_visitor_id" translate="label comment" type="text" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
-                    <label>Anonymous GA visitorID Value</label>
-                </field>
             </group>
         </section>
     </system>

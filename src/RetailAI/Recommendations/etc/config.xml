@@ -16,7 +16,6 @@
                 <google_pdp_recommendation_placement_id><!-- Reco AI placementId --></google_pdp_recommendation_placement_id>
                 <google_pdp_recommendation_event_type><!-- Reco AI eventType --></google_pdp_recommendation_event_type>
                 <google_recommendation_validate_only>0</google_recommendation_validate_only>
-                <google_recommendation_anon_visitor_id>0999XX999</google_recommendation_anon_visitor_id>
             </google_retail>
         </catalog>
     </default>
