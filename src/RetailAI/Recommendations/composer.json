@@ -1,6 +1,6 @@
 {
   "name": "retailai/recommendations",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "This module integrates with Google Retail to surface personalised product recommendations",
   "type": "magento2-module",
   "require": {
@@ -10,7 +10,7 @@
     "magento/module-widget": "~101.2"
   },
   "license": [
-    "OSL-3.0"
+    "GPL-3.0"
   ],
   "autoload": {
     "files": [
