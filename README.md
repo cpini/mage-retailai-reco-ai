@@ -1,4 +1,3 @@
-
 <p align="center">
 <a href="https://www.codetriage.com/magento/magento2"><img src="https://www.codetriage.com/magento/magento2/badges/users.svg" alt="Open Source Helpers" /></a>
 <a href="https://gitter.im/magento/magento2?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge"><img src="https://badges.gitter.im/Join%20Chat.svg" alt="Gitter" /></a> <a href="https://crowdin.com/project/magento-2"><img src="https://d322cqt584bo4o.cloudfront.net/magento-2/localized.svg" alt="Crowdin" /></a><br/>
@@ -13,24 +12,29 @@ Welcome to the Magento Open Source project! [Magento Open Source](https://magent
 
 However, for those who need a full-featured eCommerce solution, we recommend [Adobe Commerce](https://magento.com/products/magento-commerce), which includes our optimized cloud architecture and hosting as well as AI-powered merchandising and analytics.
 
-## Vertex AI Search for retail integration extension
-The Vertex AI Search for retail is made up of search and recommendations capabilities. These help you implement personalized search and recommendations, based on machine learning models, across your websites and mobile applications.
+## Vertex AI Search for Retail Integration Extension
+Vertex AI Search for Retail is made up of search and recommendations capabilities. These help you implement personalised search and recommendations based on your product catalog and user events using machine learning models to augment the experience and surface targetted product data to your users across all your customer touchpoints.
 
 This specific integration extension with Magento enables Recommendations.
+
+## Architecture 
+![alt text](https://github.com/cpini/mage-retailai-reco-ai/blob/main/docs/img/arch-Recommendations.drawio.png)
 
 ## Dependencies
 * You will need to have the [Vertex AI Search for retail](https://cloud.google.com/retail/docs) service enabled in GCP
 * You will need to [import your product catalog](https://cloud.google.com/retail/docs/upload-catalog) into the service (this can be achieved easily if your products are merchandised in the [Google Merchant Centre](https://www.google.com/retail/))
-* You will need to capture specific user-event metrics in GA as the [Recommendations](https://cloud.google.com/blog/topics/developers-practitioners/recommendations-ai-modeling) engine uses a number of [key user-events](https://cloud.google.com/retail/docs/user-events) to train the AI models (please read [Vertex AI Search for retail requirements](https://cloud.google.com/retail/docs/user-events#retail-reqs) for general user-event requirements and [recommendations-specific requirements](https://cloud.google.com/retail/docs/user-events#rec-reqs) to further understand the `purchase-complete` event). Note the key fields to map a recommendation back to a user are the `visitorId` and the `userId` i.e. these must be formatted exactly the same across event import or event recording and in API requests. This extension assumes the use of the GA `Client ID` as the `visitorId` and the Magento `customerIncrementID` as the `userId`.  
+* You will need to capture specific user-event metrics in GA or using a Tag Manager and integrating with the `Search for Retail API` as the [Recommendations](https://cloud.google.com/blog/topics/developers-practitioners/recommendations-ai-modeling) engine uses a number of [key user-events](https://cloud.google.com/retail/docs/user-events) to train the AI models (please read [Vertex AI Search for Retail requirements](https://cloud.google.com/retail/docs/user-events#retail-reqs) for general user-event requirements and [recommendations-specific requirements](https://cloud.google.com/retail/docs/user-events#rec-reqs) to further understand the `purchase-complete` event). Note the key fields to map a recommendation back to a user are the `visitorId` and the `userId` i.e. these must be formatted exactly the same across event import or event recording and in API requests. This extension assumes the use of the GA `Client ID` as the `visitorId` and the Magento `customerIncrementID` as the `userId`.  
 * The `visitorId` should be able to uniquely identify a visitor on a single device. The recommendation is to use the GA `Client ID`(https://developers.google.com/analytics/devguides/collection/analyticsjs/field-reference#clientId) as this is device specific. For a more granular level of perosnalisation you should also be capturing the `userId` when the user is logged into the site.
 * You will need to create a Vertex AI Search for retail [service account](https://cloud.google.com/iam/docs/service-account-overview) to grant access to applications that need to integrate with the service
 * Please consult supplementary details on [best practices](https://cloud.google.com/iam/docs/best-practices-service-accounts) for using GCP service accounts to support your own hosting environment  
 
 ## Get started
 * Drop the module into your working environment in `app/code`
+* Enable it by running `setup:upgrade` etc...
 * Set the ready-made config details for the Product Detail Page (other models can easily be created reusing product lists)
-* Tested on Magento 2.4.6-p1, 2.4.7-p3 (PHP 8.2)
+* Tested on Magento 2.4.6-p1, 2.4.7 (PHP 8.2)
 * The blocks for the product lists bust the full page cache without invalidating the entire page  
+* Refer to the architecture diagram and Google documentation for further details
 
 ## How to use
 * Inject the `RetailAI_Recommendations::recommendation/view.phtml` template into the relevant block as per the catalog product view example, it requires the `placement-id` and `event-type` to be configured to surface the product recommendations from the relevant model.
