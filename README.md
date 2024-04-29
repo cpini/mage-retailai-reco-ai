@@ -13,7 +13,9 @@ Welcome to the Magento Open Source project! [Magento Open Source](https://magent
 However, for those who need a full-featured eCommerce solution, we recommend [Adobe Commerce](https://magento.com/products/magento-commerce), which includes our optimized cloud architecture and hosting as well as AI-powered merchandising and analytics.
 
 ## Vertex AI Search for Retail Integration Extension
-Vertex AI Search for Retail is made up of search and recommendations capabilities. These help you implement personalised search and recommendations based on your product catalog and user events using machine learning models to augment the experience and surface targetted product data to your users across all your customer touchpoints.
+Vertex AI Search for Retail is made up of two discrete capabilities namely search and recommendations and have been designed to elevate the ecommerce experience, minimise search abandonment and meet rising customer expectation using advanced search features and AI. 
+
+Vertex AI Search for Retail will help you implement personalised search and recommendations based on your product catalogue and user events by using machine learning models to surface relevant and targeted products to your users across all your customer touchpoints.
 
 This specific integration extension with Magento enables Recommendations.
 
