@@ -5,11 +5,12 @@ namespace RetailAI\Recommendations\Block\Recommendation;
 use Exception;
 use RetailAI\Recommendations\Block\Product\ListProduct as CoreListProduct;
 use RetailAI\Recommendations\Helper\Data as GoogleHelper;
-use Google\Cloud\Retail\V2\PredictionServiceClient;
+use Google\Cloud\Retail\V2\Client\PredictionServiceClient;
 use Google\Cloud\Retail\V2\Product;
 use Google\Cloud\Retail\V2\ProductDetail;
 use Google\Cloud\Retail\V2\UserEvent;
 use Google\Cloud\Retail\V2\UserInfo;
+use Google\Cloud\Retail\V2\PredictRequest;
 use Magento\Catalog\Api\CategoryRepositoryInterface;
 use Magento\Catalog\Block\Product\Context;
 use Magento\Catalog\Model\Layer\Resolver;
@@ -121,12 +122,15 @@ class ListProduct extends CoreListProduct
     private function getProductRecommendationEntities(): array
     {
         $topFive = [-1];
-        $predictClient = $this->getGooglePredictionServiceClient();
+        $options = [];
         try {
-            $validateOnly = $this->googleHelper->getRecommendationsValidateOnly();
-            $placement = $this->getPlacementData();
-            $userEvent = $this->getUserEventData();
-            $results = $predictClient->predict($placement, $userEvent, ['validateOnly' => $validateOnly]);
+            $predictClient = $this->getGooglePredictionServiceClient();
+            $predictRequest = (new PredictRequest);
+            $predictRequest
+                ->setUserEvent($this->getUserEventData())
+                ->setPlacement($this->getPlacementData())
+                ->setValidateOnly($this->googleHelper->getRecommendationsValidateOnly());
+            $results = $predictClient->predict($predictRequest, $options);
             $predictClient->close();
             $entityIds = [];
             if (!empty($results->getResults())) {
@@ -138,7 +142,6 @@ class ListProduct extends CoreListProduct
         } catch (Exception $e) {
             $this->logger->critical("Recs: " . $e->getMessage());
         }
-
         return $topFive;
     }
 
@@ -150,7 +153,6 @@ class ListProduct extends CoreListProduct
     {
         $identities = [];
         return array_merge([], ...$identities);
-        ;
     }
 
 
@@ -190,10 +192,9 @@ class ListProduct extends CoreListProduct
             }
             if (!is_null($this->googleHelper->getUserId())){
                 $userInfo = (new UserInfo);
-                $userInfo->setUserId($this->googleHelper->getUserId());
+                $userInfo->setUserId(hash('md5', $this->googleHelper->getUserId()));
                 $userEvent->setUserInfo($userInfo);
             }
-
         } catch (LocalizedException $e) {
             $this->_logger->error("Google Recs - issue getting visitorId: " . $e->getMessage());
         }
@@ -214,7 +215,7 @@ class ListProduct extends CoreListProduct
     /**
      * @return $this
      */
-    protected function _beforeToHtml()
+    protected function _beforeToHtml(): static
     {
         return $this;
     }
